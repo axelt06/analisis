@@ -1,55 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    ----
-    <title>MindAR - Pez Koi Estático</title>
+    <title>MindAR - Solo Pescado (Estático)</title>
+    <title>MindAR - Pez Estático</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.2.0/dist/aframe-extras.min.js"></script> 
 </head>
 <body>
 
-    <a-scene mindar-image="imageTargetSrc: targets.miand; maxTrack: 3; debug: true;" 
-             color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: true"
-             vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+@@ -22,14 +21,28 @@
 
-        <!-- 🔹 Carga el nuevo modelo -->
-        <a-assets>
-            <a-asset-item id="koi-modelo" src="/assets/koifish.glb"></a-asset-item>
-        </a-assets>
-
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-        <!-- 🔹 Usa el nuevo asset ID -->
         <a-entity mindar-image-target="targetIndex: 0">
             <a-entity 
                 id="pez" 
-                gltf-model="#koi-modelo" 
+                gltf-model="#pez-modelo" 
                 rotation="90 0 0"
                 position="0 0 0.1"
                 scale="0.5 0.5 0.5">
             </a-entity>
         </a-entity>
+
     </a-scene>
 
-    <!-- 🔹 Mismo script para detener animaciones -->
     <script>
+      // Esperar a que se cargue el modelo y detener animaciones
       document.querySelector('#pez').addEventListener('model-loaded', (e) => {
         const model = e.detail.model;
-
-        // Detiene cualquier animación embebida
-        model.traverse((node) => {
-          if (node.animations && node.animations.length) {
-            node.animations = [];
+        // Buscar el mezclador de animaciones y detener todas
+        if (model && model.animations && model.animations.length > 0) {
+          const mixer = model.mixer;
+          if (mixer) {
+            mixer.stopAllAction();
           }
-          if (node.mixer) {
-            node.mixer.stopAllAction();
-          }
-        });
-
-        if (model.mixer) {
-          model.mixer.stopAllAction();
         }
       });
     </script>
