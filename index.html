@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MindAR - Pez ESTABLE</title>
+    <title>MindAR - Pez Estático</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
+    <!-- A-Frame + MindAR + Extras -->
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.2.0/dist/aframe-extras.min.js"></script>
-    <style>body { margin: 0; overflow: hidden; }</style>
+    
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
 </head>
 <body>
 
-  <a-scene
-    mindar-image="imageTargetSrc: targets.mind; filterMinCF:0.001; filterBeta:0.03; warmupTolerance:100; missTolerance:20"
-    color-space="sRGB"
-    renderer="colorManagement: true"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
+    <!-- UN SOLO A-SCENE -->
+    <a-scene
+        mindar-image="imageTargetSrc: targets.mind; filterMinCF: 0.0001; filterBeta: 0.001;"
+        color-space="sRGB"
+        renderer="colorManagement: true"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false">
 
-    <a-assets timeout="30000">
-      <a-asset-item id="pez-modelo" src="./assets/fish.glb"></a-asset-item>
-    </a-assets>
+        <!-- Carga del modelo -->
+        <a-assets timeout="20000">
+            <a-asset-item id="pez-modelo" src="./assets/fish.glb"></a-asset-item>
+        </a-assets>
 
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        <!-- Cámara fija -->
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <a-entity light="type: ambient; intensity: 0.8"></a-entity>
-    <a-entity light="type: directional; intensity: 1.0" position="1 3 2"></a-entity>
+        <!-- Luces (mejora visualización) -->
+        <a-entity light="type: ambient; intensity: 0.7"></a-entity>
+        <a-entity light="type: directional; intensity: 0.8" position="1 2 1"></a-entity>
 
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-entity
-        gltf-model="#pez-modelo"
-        scale="1.5 1.5 1.5"
-        rotation="-90 0 90"
-        position="0 0.4 0.8"
-        animation-mixer="loop: once; clampWhenFinished: true;">
-      </a-entity>
-    </a-entity>
+        <!-- Al detectar el marcador → muestra el pez ESTÁTICO -->
+        <a-entity mindar-image-target="targetIndex: 0">
+            <a-entity
+                gltf-model="#pez-modelo"
+                scale="0.5 0.5 0.5"
+                rotation="90 0 0"
+                position="0 0 0.1"
+                animation-mixer="clip: *; loop: once; clampWhenFinished: true;">
+            </a-entity>
+        </a-entity>
 
-  </a-scene>
+    </a-scene>
 
 </body>
 </html>
