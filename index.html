@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MindAR - Solo Pescado (Visualización Simple)</title>
+    <title>MindAR - Solo Pescado (Estático)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.1/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.2.0/dist/aframe-extras.min.js"></script> 
@@ -18,20 +18,18 @@
             <a-asset-item id="pez-modelo" src="./assets/fish.glb"></a-asset-item>
         </a-assets>
 
-        <a-camera 
-            position="0 0 0" 
-            look-controls="enabled: false">
-        </a-camera>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity mindar-image-target="targetIndex: 0">
             <a-entity 
                 gltf-model="#pez-modelo" 
-                rotation="90 0 0"              
-                position="0 0 0.1"             
-                scale="0.5 0.5 0.5"           
-                animation-mixer>               </a-entity>
+                rotation="90 0 0"
+                position="0 0 0.1"
+                scale="0.5 0.5 0.5">
+            </a-entity>
         </a-entity>
 
-        </a-scene>
+    </a-scene>
 </body>
 </html>
+
